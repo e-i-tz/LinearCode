@@ -35,3 +35,20 @@ def validate_code_parameters(n, k, d):
     if not check_vashamov_gilbert_bound(n, k, d):
         raise ValueError("Параметры кода не удовлетворяют границе Варшамова-Гильберта.")
     return True
+
+
+def input_message(k):
+    # Запрашивает у пользователя ввод бинарного сообщения длины k.
+    while True:
+        message = input(f"Введите бинарное сообщение длины {k}: ")
+        # Проверка длины сообщения
+        if len(message) != k:
+            print(f"Сообщение должно быть длины {k}. Попробуйте снова.")
+            continue
+        # Проверка, что сообщение состоит только из 0 и 1
+        if not all(bit in '01' for bit in message):
+            print("Сообщение должно состоять только из 0 и 1. Введите другое сообщение, которое желаете закодировать.")
+            continue
+        # Преобразование строки в вектор
+        message_vector = [int(bit) for bit in message]
+        return message_vector
