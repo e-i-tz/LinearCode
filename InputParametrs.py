@@ -35,7 +35,3 @@ def validate_code_parameters(n, k, d):
     if not check_vashamov_gilbert_bound(n, k, d):
         raise ValueError("Параметры кода не удовлетворяют границе Варшамова-Гильберта.")
     return True
-
-
-
-
