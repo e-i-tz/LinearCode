@@ -99,6 +99,19 @@ def multiply_inverse_matrices_with_G(G, inverse_submatrices):
     return result_matrices
 
 
+def get_codewords(a, invertible_submatrices, result_matrices):
+    coded_words = []
+    for cols, result_matrix in zip(invertible_submatrices, result_matrices):
+        # Составляем вектор a1, выбирая элементы на позициях из cols
+        a1 = np.array([a[i] for i in cols])
+        # Кодируем вектор a1 с помощью результирующей матрицы
+        c1 = np.dot(a1, result_matrix) % 2
+        coded_words.append(c1)
+
+    return coded_words
+
+
+
 
 
 

@@ -52,3 +52,20 @@ def input_message(k):
         # Преобразование строки в вектор
         message_vector = [int(bit) for bit in message]
         return message_vector
+
+
+def input_codeword(n):
+    # Запрашивает у пользователя ввод бинарного сообщения длины k.
+    while True:
+        codeword = input(f"Введите бинарное сообщение длины {n}: ")
+        # Проверка длины сообщения
+        if len(codeword) != n:
+            print(f"Сообщение должно быть длины {n}. Попробуйте снова.")
+            continue
+        # Проверка, что сообщение состоит только из 0 и 1
+        if not all(bit in '01' for bit in codeword):
+            print("Сообщение должно состоять только из 0 и 1. Введите другое сообщение, которое желаете декодировать.")
+            continue
+        # Преобразование строки в вектор
+        codeword_vector = [int(bit) for bit in codeword]
+        return codeword_vector

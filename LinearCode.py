@@ -1,6 +1,6 @@
 from EncodeAndDecode import encode_message, find_all_invertible_submatrices, find_all_invertible_submatrices, \
-    create_inverse_submatrices, multiply_inverse_matrices_with_G
-from InputParametrs import get_code_parameters, validate_code_parameters, input_message
+    create_inverse_submatrices, multiply_inverse_matrices_with_G, get_codewords
+from InputParametrs import get_code_parameters, validate_code_parameters, input_message, input_codeword
 from GeneratorAndCheckMatrix import create_generator_matrix, create_parity_check_matrix
 
 n, k, d = get_code_parameters()
@@ -17,8 +17,8 @@ H = create_parity_check_matrix(A)
 message = input_message(k)
 codeword = encode_message(message, G)
 
-#print("Исходное сообщение:", message)
-#print("Кодовое слово:", codeword)
+print("Исходное сообщение:", message)
+print("Кодовое слово:", codeword)
 #print("Построенный код может исправить одну ошибку")
 #print("Проверочная матрица H:")
 print("Генераторная матрица G в систематическом виде:")
@@ -47,3 +47,12 @@ print("Результирующие матрицы:")
 for i, result_matrix in enumerate(result_matrices):
     print(f"Результирующая матрица {i + 1}:")
     print(result_matrix)
+
+a = input_codeword(n)
+
+# Декодирование слова с помощью обратных и результирующих матриц
+coded_words = get_codewords(a, invertible_submatrices, result_matrices)
+
+for i, coded_word in enumerate(coded_words):
+    print(f"Закодированное слово {i + 1}:")
+    print(coded_word)
