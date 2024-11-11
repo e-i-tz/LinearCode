@@ -88,6 +88,19 @@ def mod2_inv(matrix):
     return inverse_matrix
 
 
+def multiply_inverse_matrices_with_G(G, inverse_submatrices):
+
+    result_matrices = []
+
+    for inverse_submatrix in inverse_submatrices:
+        result_matrix = np.dot(inverse_submatrix, G) % 2
+        result_matrices.append(result_matrix)
+
+    return result_matrices
+
+
+
+
 
 
 
