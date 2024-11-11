@@ -48,6 +48,48 @@ def find_all_invertible_submatrices(G, k, n):
 
     return invertible_submatrices
 
+# Получение обратных матриц
+def create_inverse_submatrices(G, invertible_submatrices):
+
+    inverse_submatrices = []
+
+    for cols in invertible_submatrices:
+        submatrix = G[:, cols]
+        inverse_submatrix = mod2_inv(submatrix)
+        inverse_submatrices.append(inverse_submatrix)
+
+    return inverse_submatrices
+
+# Нахождение обратной матрицы над полем GF(2)
+def mod2_inv(matrix):
+
+    n = matrix.shape[0]
+    identity = np.eye(n, dtype=int)
+    augmented = np.hstack((matrix, identity))
+
+    for i in range(n):
+        # Находим строку с ненулевым элементом в текущем столбце
+        if augmented[i, i] == 0:
+            for j in range(i + 1, n):
+                if augmented[j, i] == 1:
+                    augmented[[i, j]] = augmented[[j, i]]
+                    break
+
+        # Если все элементы столбца равны нулю, матрица необратима
+        if augmented[i, i] == 0:
+            raise ValueError("Матрица необратима в поле GF(2).")
+
+        # Приводим элемент на главной диагонали к 1 и обнуляем остальные элементы в этом столбце
+        for j in range(n):
+            if i != j and augmented[j, i] == 1:
+                augmented[j] = (augmented[j] + augmented[i]) % 2
+
+    inverse_matrix = augmented[:, n:]
+    return inverse_matrix
+
+
+
+
 
 
 

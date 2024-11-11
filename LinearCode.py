@@ -1,4 +1,5 @@
-from EncodeAndDecode import encode_message, find_all_invertible_submatrices, find_all_invertible_submatrices
+from EncodeAndDecode import encode_message, find_all_invertible_submatrices, find_all_invertible_submatrices, \
+    create_inverse_submatrices
 from InputParametrs import get_code_parameters, validate_code_parameters, input_message
 from GeneratorAndCheckMatrix import create_generator_matrix, create_parity_check_matrix
 
@@ -30,3 +31,11 @@ print("Индексы столбцов, образующих обратимые 
 for idx, cols in enumerate(invertible_submatrices):
     print(f"Подматрица {idx + 1}:")
     print(G[:, cols])
+
+# Создание и обращение подматриц
+inverse_submatrices = create_inverse_submatrices(G, invertible_submatrices)
+
+print("Обратные матрицы подматриц:")
+for i, inverse_submatrix in enumerate(inverse_submatrices):
+    print(f"Обратная матрица {i + 1}:")
+    print(inverse_submatrix)
