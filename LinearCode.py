@@ -7,3 +7,4 @@ try:
         print("Параметры кода удовлетворяют всем границам.")
 except ValueError as e:
     print(e)
+
