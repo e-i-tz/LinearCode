@@ -120,7 +120,7 @@ def detectRightWord(codeword, coded_words):
         weights_array[weight] = coded_words[c]
 
     min_weight = min(weights_array.keys())
-    decoded_word = weight[min_weight]
+    decoded_word = weights_array[min_weight]
     return decoded_word
 
 #Нахождение веса хэммингаа
