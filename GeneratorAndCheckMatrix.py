@@ -12,9 +12,6 @@ def create_generator_matrix(k, n, d):
         G = np.hstack((I, A))
         # Проверяем, что строки матрицы G линейно независимы
         if np.linalg.matrix_rank(G) == k:
-            # Подсчитываем минимальный вес строки в G, получая минимальный вес кода и сравнивая его с d
-            # min_weight = np.min(np.sum(G, axis=1))
-            # min_weight == d:
             H = create_parity_check_matrix(A)
             d_H = find_minimum_distance(H)
             if d_H == d:
