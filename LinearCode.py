@@ -1,8 +1,6 @@
-from EncodeAndDecode import encode_message, find_all_invertible_submatrices, find_all_invertible_submatrices, \
-    create_inverse_submatrices, multiply_inverse_matrices_with_G, get_codewords, find_error_vector, correct_codeword, \
-    decode_codeword
-from InputParametrs import get_code_parameters, validate_code_parameters, input_message, input_codeword
-from GeneratorAndCheckMatrix import create_generator_matrix, create_parity_check_matrix
+from EncodeAndDecode import *
+from InputParametrs import *
+from GeneratorAndCheckMatrix import *
 
 def main():
     # Получение параметров кода от пользователя

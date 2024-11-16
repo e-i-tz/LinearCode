@@ -114,7 +114,9 @@ def detectRightWord(codeword, coded_words):
     weights_array = {}
     for c in range(len(coded_words)):
         difference = np.array((codeword - coded_words[c]) % 2)
+        print(f'Разность между кодовым словом и с{c} {codeword} - {coded_words[c]} = {difference}')
         weight = findHammingWeight(difference)
+        print(f"W(h) для {c} = {weight}")
         weights_array[weight] = coded_words[c]
 
     min_weight = min(weights_array.keys())
