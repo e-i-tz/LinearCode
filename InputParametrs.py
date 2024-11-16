@@ -29,11 +29,14 @@ def check_singleton_bound(n, k, d):
 
 def validate_code_parameters(n, k, d):
     if not check_hamming_bound(n, k, d):
-        raise ValueError("Параметры кода не удовлетворяют границе Хэмминга.")
+        print("Параметры кода не удовлетворяют границе Хэмминга.")
+        get_code_parameters()
     if not check_singleton_bound(n, k, d):
-        raise ValueError("Параметры кода не удовлетворяют границе Синглтона.")
+        print("Параметры кода не удовлетворяют границе Синглтона.")
+        get_code_parameters()
     if not check_vashamov_gilbert_bound(n, k, d):
-        raise ValueError("Параметры кода не удовлетворяют границе Варшамова-Гильберта.")
+        print("Параметры кода не удовлетворяют границе Варшамова-Гильберта.")
+        get_code_parameters()
     return True
 
 
