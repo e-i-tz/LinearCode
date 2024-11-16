@@ -113,7 +113,6 @@ def get_codewords(a, invertible_submatrices, result_matrices):
 def detectRightWord(codeword, coded_words):
     weights_array = {}
     for c in range(len(coded_words)):
-        print("lalal")
         difference = np.array((codeword - coded_words[c]) % 2)
         weight = findHammingWeight(difference)
         weights_array[weight] = coded_words[c]
