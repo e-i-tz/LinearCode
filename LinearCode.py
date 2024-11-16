@@ -1,61 +1,62 @@
-from EncodeAndDecode import *
-from InputParametrs import *
-from GeneratorAndCheckMatrix import *
+from EncodeAndDecode import encode_message, find_all_invertible_submatrices, find_all_invertible_submatrices, \
+    create_inverse_submatrices, multiply_inverse_matrices_with_G, get_codewords, find_error_vector, correct_codeword, \
+    decode_codeword
+from InputParametrs import get_code_parameters, validate_code_parameters, input_message, input_codeword
+from GeneratorAndCheckMatrix import create_generator_matrix, create_parity_check_matrix
 
-n, k, d = get_code_parameters()
+def main():
+    # Получение параметров кода от пользователя
+    n, k, d = get_code_parameters()
 
-try:
-    if validate_code_parameters(n, k, d):
-        print("Параметры кода удовлетворяют всем границам.")
-        message = input_message(k)
-except ValueError as e:
-    print(e)
+    # Проверка параметров кода
+    try:
+        if validate_code_parameters(n, k, d):
+            print("Параметры кода удовлетворяют всем границам.")
+    except ValueError as e:
+        print(e)
+        return
 
-G, A = create_generator_matrix(k, n, d)
-H = create_parity_check_matrix(A)
+    # Создание генераторной и проверочной матриц
+    G, A = create_generator_matrix(k, n, d)
+    H = create_parity_check_matrix(A)
 
-codeword = encode_message(message, G)
+    print("Генераторная матрица G в систематическом виде:")
+    print(G)
+    print("Проверочная матрица H:")
+    print(H)
+    print("Построенный код может исправить одну ошибку.")
 
-print("Исходное сообщение:", message)
-print("Кодовое слово:", codeword)
-#print("Построенный код может исправить одну ошибку")
-print("Генераторная матрица G в систематическом виде:")
-print(G)
-print("Проверочная матрица H:")
-print(H)
+    while True:
+        print("\nВыберите действие:")
+        print("1. Закодировать сообщение")
+        print("2. Декодировать кодовое слово")
+        print("3. Выйти")
 
-invertible_submatrices = find_all_invertible_submatrices(G, k, n)
-print("Индексы столбцов, образующих обратимые подматрицы:", invertible_submatrices)
-for idx, cols in enumerate(invertible_submatrices):
-    print(f"Подматрица {idx + 1}:")
-    print(G[:, cols])
+        choice = input("Введите номер действия: ")
 
-# Создание и обращение подматриц
-inverse_submatrices = create_inverse_submatrices(G, invertible_submatrices)
+        if choice == '1':
+            message = input_message(k)
+            codeword = encode_message(message, G)
+            print("Исходное сообщение:", message)
+            print("Кодовое слово:", codeword)
 
-print("Обратные матрицы подматриц:")
-for i, inverse_submatrix in enumerate(inverse_submatrices):
-    print(f"Обратная матрица {i + 1}:")
-    print(inverse_submatrix)
+        elif choice == '2':
+            codeword = input_codeword(n)
+            try:
+                decoded_word, syndrome, corrected_word, error_vector = decode_codeword(codeword, H, G, k, n)
+                print("Вектор ошибок:", error_vector)
+                print("Исправленное слово:", corrected_word)
+                print("Декодированное слово:", decoded_word)
+                print("Синдром:", syndrome)
+            except ValueError as e:
+                print(e)
 
-# Умножение обратных матриц на изначальную генераторную матрицу G
-result_matrices = multiply_inverse_matrices_with_G(G, inverse_submatrices)
+        elif choice == '3':
+            print("Выход из программы.")
+            break
 
-print("Результирующие матрицы:")
-for i, result_matrix in enumerate(result_matrices):
-    print(f"Результирующая матрица {i + 1}:")
-    print(result_matrix)
+        else:
+            print("Неверный выбор, попробуйте снова.")
 
-a = input_codeword(n)
-
-# Кодирование слова с помощью обратных и результирующих матриц
-coded_words = get_codewords(a, invertible_submatrices, result_matrices)
-
-for i, coded_word in enumerate(coded_words):
-    print(f"Закодированное слово {i + 1}:")
-    print(coded_word)
-
-print("Получение кодового слова: ")
-decoded_word = detectRightWord(codeword, coded_words)
-print(f"Декодированное слово: {decoded_word}")
-
+if __name__ == "__main__":
+    main()
