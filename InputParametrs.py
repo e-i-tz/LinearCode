@@ -22,7 +22,7 @@ def check_hamming_bound(n, k, d):
 def check_vashamov_gilbert_bound(n, k, d):
     left_side = 2 ** k
     right_side = 2 ** n / sum(comb(n, i) for i in range(d-1))
-    return left_side <= right_side
+    return left_side => right_side
 
 def check_singleton_bound(n, k, d):
     return k <= n - d + 1
